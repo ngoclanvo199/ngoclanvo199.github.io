@@ -1,0 +1,328 @@
+/* ─── Base resets & custom props ──────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --c-primary:    #10b981;
+      --c-dark:       #064e3b;
+      --c-light:      #4ade80;
+      --c-gold:       #d97706;
+      --c-gold-light: #fbbf24;
+      --c-bg:         #f8fafc;
+      --c-bg-dark:    #0f172a;
+      --transition:   0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    html { font-family: 'DM Sans', system-ui, sans-serif; }
+
+    /* Scrollbar styling */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--c-primary); border-radius: 99px; }
+
+    /* ─── Typography helpers ──────────────────────────────────────── */
+    .font-heading { font-family: 'Playfair Display', Georgia, serif; }
+    .font-body    { font-family: 'DM Sans', system-ui, sans-serif; }
+
+    /* ─── Glassmorphism card ──────────────────────────────────────── */
+    .glass {
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .glass-dark {
+      background: rgba(6,78,59,0.18);
+      backdrop-filter: blur(18px) saturate(200%);
+      -webkit-backdrop-filter: blur(18px) saturate(200%);
+      border: 1px solid rgba(52,211,153,0.15);
+    }
+
+    /* ─── Header scroll effect ────────────────────────────────────── */
+    #site-header {
+      transition: background var(--transition), box-shadow var(--transition);
+    }
+    #site-header.scrolled {
+      background: rgba(6,78,59,0.82) !important;
+      box-shadow: 0 4px 32px rgba(6,78,59,0.25);
+      backdrop-filter: blur(20px);
+    }
+    .dark #site-header.scrolled {
+      background: rgba(15,23,42,0.88) !important;
+    }
+
+    /* ─── Hero map wrapper ────────────────────────────────────────── */
+    #hero-map {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+    #hero-map iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* Soft gradient overlay over map */
+    .map-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(6,78,59,0.55) 0%,
+        rgba(6,78,59,0.1) 40%,
+        rgba(6,78,59,0.05) 70%,
+        rgba(6,78,59,0.45) 100%
+      );
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* Hero content on top of map */
+    .hero-content {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 6rem;
+      pointer-events: none;
+    }
+    .hero-content > * { pointer-events: auto; }
+
+    /* Gold text shimmer */
+    .text-shimmer {
+      background: linear-gradient(90deg, #d97706 0%, #fcd34d 40%, #d97706 80%, #fbbf24 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 4s linear infinite;
+    }
+
+    /* ─── Sidebar ─────────────────────────────────────────────────── */
+    #info-sidebar {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: min(420px, 100vw);
+      height: 100vh;
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform var(--transition);
+      overflow: hidden;
+    }
+    #info-sidebar.open {
+      transform: translateX(0);
+    }
+
+    /* Sidebar inner scrollable */
+    .sidebar-body {
+      flex: 1;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+    }
+    .sidebar-body::-webkit-scrollbar { width: 4px; }
+    .sidebar-body::-webkit-scrollbar-thumb { background: var(--c-light); }
+
+    /* ─── Location cards ──────────────────────────────────────────── */
+    .loc-card {
+      cursor: pointer;
+      border-left: 3px solid transparent;
+      transition: all 0.25s ease;
+    }
+    .loc-card:hover { border-left-color: var(--c-primary); background: rgba(16,185,129,0.06); }
+    .loc-card.active { border-left-color: var(--c-gold); background: rgba(217,119,6,0.06); }
+
+    /* ─── FAB ─────────────────────────────────────────────────────── */
+    #fab {
+      position: fixed;
+      bottom: 2rem;
+      left: 1.5rem;
+      z-index: 40;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--c-primary) 0%, var(--c-dark) 100%);
+      box-shadow: 0 8px 32px rgba(16,185,129,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: none;
+      outline: none;
+    }
+    #fab:hover {
+      transform: scale(1.1);
+      box-shadow: 0 12px 40px rgba(16,185,129,0.55);
+    }
+    #fab:active { transform: scale(0.96); }
+
+    /* ─── Poem blockquote ─────────────────────────────────────────── */
+    .poem-block {
+      border-left: 3px solid var(--c-gold);
+      background: linear-gradient(to right, rgba(217,119,6,0.06), transparent);
+      padding: 1rem 1.25rem;
+      border-radius: 0 8px 8px 0;
+      font-style: italic;
+    }
+
+    /* ─── Section reveal animation ────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── Nav link hover ──────────────────────────────────────────── */
+    .nav-link {
+      position: relative;
+      transition: color 0.25s;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1.5px;
+      background: var(--c-gold);
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after { width: 100%; }
+
+    /* ─── Dark mode overrides ─────────────────────────────────────── */
+    .dark body { background: var(--c-bg-dark); color: #e2e8f0; }
+    .dark .section-light { background: #1e293b; }
+
+    /* ─── Mobile nav toggle ───────────────────────────────────────── */
+    #mobile-menu {
+      transition: max-height 0.35s ease, opacity 0.35s ease;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+    }
+    #mobile-menu.open { max-height: 500px; opacity: 1; }
+
+    /* ─── Decorative ornament ─────────────────────────────────────── */
+    .ornament {
+      display: inline-block;
+      color: var(--c-gold);
+      font-size: 1.25rem;
+      user-select: none;
+    }
+
+    /* ─── Image fade-in on load ───────────────────────────────────── */
+    .img-reveal {
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+    .img-reveal.loaded { opacity: 1; }
+
+    /* ─── Table of contents ───────────────────────────────────────── */
+    #toc-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(6,78,59,0.5);
+      backdrop-filter: blur(8px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    #toc-modal.open { opacity: 1; pointer-events: auto; }
+    #toc-box {
+      width: min(560px, 95vw);
+      max-height: 80vh;
+      overflow-y: auto;
+      transform: scale(0.92);
+      transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
+    }
+    #toc-modal.open #toc-box { transform: scale(1); }
+
+    /* ─── Shimmer loading skeleton ────────────────────────────────── */
+    .skeleton {
+      background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+    }
+    .dark .skeleton {
+      background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
+      background-size: 200% 100%;
+    }
+
+    /* ─── Divider ornamental ──────────────────────────────────────── */
+    .ornamental-divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      color: var(--c-gold);
+    }
+    .ornamental-divider::before,
+    .ornamental-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--c-gold), transparent);
+    }
+
+    /* ─── Scroll indicator ────────────────────────────────────────── */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      animation: float 2.5s ease-in-out infinite;
+    }
+    .scroll-indicator span {
+      display: block;
+      width: 22px;
+      height: 36px;
+      border: 2px solid rgba(255,255,255,0.6);
+      border-radius: 11px;
+      position: relative;
+    }
+    .scroll-indicator span::after {
+      content: '';
+      position: absolute;
+      top: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 8px;
+      background: rgba(255,255,255,0.8);
+      border-radius: 2px;
+      animation: float 1.5s ease-in-out infinite;
+    }
+
+    /* ─── Backdrop for sidebar ────────────────────────────────────── */
+    #sidebar-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 45;
+      background: rgba(6,78,59,0.3);
+      backdrop-filter: blur(2px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    #sidebar-backdrop.open { opacity: 1; pointer-events: auto; }

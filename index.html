@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bản Đồ Số</title>
+  <meta name="description" content="Hành trình số khám phá cuộc đời và di sản của Nguyễn Trãi – nhà tư tưởng, thi nhân, anh hùng dân tộc – qua các địa danh lịch sử trên bản đồ tương tác." />
+  <meta name="keywords" content="Nguyễn Trãi, bản đồ số, lịch sử Việt Nam, Bình Ngô Đại Cáo, Côn Sơn, di sản văn hóa" />
+  <meta property="og:title" content="Bản Đồ Số: Dấu Chân Nhân Nghĩa – Nguyễn Trãi" />
+  <meta property="og:description" content="Khám phá hành trình cuộc đời Nguyễn Trãi qua bản đồ số tương tác." />
+  <meta property="og:type" content="website" />
+
+  <!-- Google Fonts: Playfair Display + DM Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+  <link rel="stylesheet" href="styles.css" />
+<body class="bg-[#f8fafc] dark:bg-[#0f172a] font-body text-slate-800 dark:text-slate-200 transition-colors duration-300">
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     HEADER (fixed, glassmorphism on scroll)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<header id="site-header" class="fixed top-0 left-0 right-0 z-30 transition-all duration-300 py-3 px-4 md:px-8">
+  <div class="max-w-7xl mx-auto flex items-center justify-between">
+
+    <!-- Logo -->
+    <a href="#" class="flex flex-col leading-none group">
+      <span class="font-heading text-lg font-bold text-white group-hover:text-emerald-300 transition-colors" style="letter-spacing:0.05em;">BẢN ĐỒ SỐ</span>
+      <span class="text-[0.6rem] tracking-[0.2em] uppercase font-body text-gold-400" style="color:var(--c-gold-light);">Dự án bản đồ số của lớp 10A4</span>
+    </a>
+
+    <!-- Desktop Nav -->
+    <nav class="hidden md:flex items-center gap-7">
+      <a href="#" class="nav-link text-white/90 hover:text-white text-sm font-body font-medium">Trang chủ</a>
+      <a href="#nguyen-trai" class="nav-link text-white/90 hover:text-white text-sm font-body font-medium">Nguyễn Trãi</a>
+      <a href="#tac-pham" class="nav-link text-white/90 hover:text-white text-sm font-body font-medium">Tác phẩm</a>
+      <a href="#" onclick="openTOC()" class="nav-link text-white/90 hover:text-white text-sm font-body font-medium cursor-pointer">Mục lục</a>
+      <a href="#credit" class="nav-link text-white/90 hover:text-white text-sm font-body font-medium">Credit</a>
+
+      <!-- Dark mode toggle -->
+      <button id="dark-toggle" onclick="toggleDark()"
+        class="w-9 h-9 rounded-full flex items-center justify-center border border-white/25 text-white/80 hover:text-white hover:border-white/50 transition-all"
+        title="Chuyển giao diện sáng/tối" aria-label="Toggle dark mode">
+        <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/>
+        </svg>
+        <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M12 7a5 5 0 100 10 5 5 0 000-10z"/>
+        </svg>
+      </button>
+    </nav>
+
+    <!-- Mobile hamburger -->
+    <div class="flex md:hidden items-center gap-3">
+      <button id="dark-toggle-m" onclick="toggleDark()" class="w-8 h-8 rounded-full flex items-center justify-center border border-white/25 text-white/80" aria-label="Toggle dark">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/>
+        </svg>
+      </button>
+      <button onclick="toggleMobileMenu()" class="w-9 h-9 flex flex-col items-center justify-center gap-1.5 group" aria-label="Menu">
+        <span class="w-5 h-0.5 bg-white rounded-full transition-all group-hover:bg-emerald-300"></span>
+        <span class="w-5 h-0.5 bg-white rounded-full transition-all group-hover:bg-emerald-300"></span>
+        <span class="w-3.5 h-0.5 bg-white rounded-full transition-all group-hover:bg-emerald-300 self-end"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile nav dropdown -->
+  <div id="mobile-menu" class="md:hidden glass-dark rounded-2xl mt-2 mx-2">
+    <div class="p-4 flex flex-col gap-3">
+      <a href="#" class="text-white/90 text-sm font-medium py-2 px-3 rounded-lg hover:bg-white/10 transition">Trang chủ</a>
+      <a href="#nguyen-trai" onclick="closeMobileMenu()" class="text-white/90 text-sm font-medium py-2 px-3 rounded-lg hover:bg-white/10 transition">Nguyễn Trãi</a>
+      <a href="#tac-pham" onclick="closeMobileMenu()" class="text-white/90 text-sm font-medium py-2 px-3 rounded-lg hover:bg-white/10 transition">Tác phẩm</a>
+      <a href="#" onclick="openTOC(); closeMobileMenu();" class="text-white/90 text-sm font-medium py-2 px-3 rounded-lg hover:bg-white/10 transition">Mục lục</a>
+      <a href="#credit" onclick="closeMobileMenu()" class="text-white/90 text-sm font-medium py-2 px-3 rounded-lg hover:bg-white/10 transition">Credit</a>
+    </div>
+  </div>
+</header>
+
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     HERO SECTION – Google Map 100vh
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section id="home" aria-label="Bản đồ tương tác">
+  <div id="hero-map">
+
+    <!-- Embedded Google My Maps -->
+    <iframe src="https://www.google.com/maps/d/embed?mid=1wMNu-X1YdSGRyjN9udjysOZ9M3GlyOU&ehbc=2E312F" width="640" height="480"></iframe>
+
+    <!-- Gradient overlay -->
+    <div class="map-overlay" aria-hidden="true"></div>
+
+    <!-- Hero content overlay -->
+    <div class="hero-content">
+      <div class="text-center px-4 max-w-3xl mx-auto animate-fade-in-up" style="animation-delay:0.2s;opacity:0;animation-fill-mode:forwards;">
+
+        <!-- Ornament -->
+        <div class="ornamental-divider mb-4 mx-auto w-64">
+          <span class="font-heading italic text-white/60 text-sm">1380 – 1442</span>
+        </div>
+
+        <!-- Main title -->
+        <h1 class="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-3" style="text-shadow: 0 2px 32px rgba(0,0,0,0.4);">
+          Dấu chân nhân nghĩa
+        </h1>
+        <p class="font-heading italic text-2xl md:text-3xl text-shimmer mb-2">
+          Nguyễn Trãi
+        </p>
+        <p class="font-body text-white/75 text-sm md:text-base mb-8 max-w-xl mx-auto leading-relaxed" style="animation-delay:0.5s;">
+          Hành trình cuộc đời và tư tưởng nhân nghĩa của Nguyễn Trãi qua các địa danh lịch sử.
+        </p>
+
+        <!-- CTA buttons -->
+        <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
+          <button onclick="openSidebar('con-son')"
+            class="group flex items-center gap-2 bg-gold-600 hover:bg-gold-500 text-white font-body font-semibold text-sm px-7 py-3.5 rounded-full shadow-lg hover:shadow-gold-500/40 transition-all duration-300 hover:scale-105"
+            style="background:var(--c-gold);">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 group-hover:rotate-12 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+            Khám phá các địa điểm
+          </button>
+          <button onclick="openTOC()"
+            class="flex items-center gap-2 border border-white/40 hover:border-white text-white font-body text-sm px-6 py-3.5 rounded-full hover:bg-white/10 transition-all duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+            </svg>
+            Mục lục địa danh
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator" aria-hidden="true">
+      <p class="text-white/60 text-xs font-body tracking-widest uppercase">Cuộn xuống</p>
+      <span></span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SECTION: NGUYỄN TRÃI – TIỂU SỬ
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section id="nguyen-trai" class="py-20 md:py-28 bg-[#f8fafc] dark:bg-[#0f172a]">
+  <div class="max-w-6xl mx-auto px-6 md:px-10">
+
+    <div class="reveal flex flex-col md:flex-row gap-12 items-start">
+
+      <!-- Left: portrait placeholder + quote -->
+      <div class="md:w-2/5">
+        <!-- Portrait frame -->
+        <div class="relative w-full max-w-xs mx-auto md:mx-0">
+          <div class="aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl ring-1 ring-emerald-200 dark:ring-emerald-900">
+            <img
+              src="https://nguoikesu.com/images/wiki/nguyen-trai/8e46323ae50c813733372891f0fbe926.jpg"
+              alt="Cảnh sơn thuỷ – biểu tượng thi nhân Nguyễn Trãi"
+              class="w-full h-full object-cover img-reveal"
+              onload="this.classList.add('loaded')"
+            />
+          </div>
+          <!-- Gold frame corner accents -->
+          <div class="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 rounded-tl-xl" style="border-color:var(--c-gold);"></div>
+          <div class="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 rounded-tr-xl" style="border-color:var(--c-gold);"></div>
+          <div class="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 rounded-bl-xl" style="border-color:var(--c-gold);"></div>
+          <div class="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 rounded-br-xl" style="border-color:var(--c-gold);"></div>
+        </div>
+
+        <!-- Year badge -->
+        <div class="mt-5 flex flex-col items-start md:items-center gap-1">
+          <span class="font-body text-xs tracking-widest uppercase text-slate-400 dark:text-slate-500">Sinh – Mất</span>
+          <span class="font-heading text-2xl font-bold" style="color:var(--c-primary);">1380 – 1442</span>
+        </div>
+      </div>
+
+      <!-- Right: biography -->
+      <div class="md:w-3/5">
+        <div class="ornamental-divider mb-6">
+          <span class="font-body text-xs tracking-widest uppercase text-slate-400">Tiểu sử</span>
+        </div>
+
+        <h2 class="font-heading text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4 leading-tight">
+          Nguyễn Trãi –<br/>
+          <span class="italic font-normal text-2xl" style="color:var(--c-primary);">Hiệu Ức Trai</span>
+        </h2>
+
+        <p class="font-body text-slate-600 dark:text-slate-300 leading-8 mb-5 text-[0.95rem]">
+          Nguyễn Trãi (1380–1442), hiệu <em>Ức Trai</em>, là một trong những nhân vật kiệt xuất nhất lịch sử Việt Nam — vừa là nhà chính trị lỗi lạc, nhà quân sự tài ba, vừa là thi nhân và tư tưởng gia vĩ đại của dân tộc.
+        </p>
+
+        <p class="font-body text-slate-600 dark:text-slate-300 leading-8 mb-5 text-[0.95rem]">
+          Ông đã cùng Lê Lợi lãnh đạo cuộc khởi nghĩa Lam Sơn (1418–1427) đánh đuổi quân Minh xâm lược. Năm 1428, ông thay Lê Thái Tổ viết <strong>Bình Ngô Đại Cáo</strong> — áng văn được mệnh danh là "bản tuyên ngôn độc lập" của dân tộc Việt Nam.
+        </p>
+
+        <div class="poem-block mb-6">
+          <p class="font-heading italic text-slate-700 dark:text-slate-200 text-base leading-7">
+            "Việc nhân nghĩa cốt ở yên dân,<br/>
+            Quân điếu phạt trước lo trừ bạo."
+          </p>
+          <p class="font-body text-xs mt-2 text-slate-500 dark:text-slate-400">— Bình Ngô Đại Cáo, 1428</p>
+        </div>
+
+        <p class="font-body text-slate-600 dark:text-slate-300 leading-8 text-[0.95rem]">
+          Cuộc đời ông trải qua nhiều thăng trầm — từ thời niên thiếu ở Nhị Khê, những năm tháng bị giam cầm khi quân Minh xâm lược, đến khi phò tá Lê Lợi và quãng đời ẩn cư tại Côn Sơn. Nguyễn Trãi bị triều đình hại oan năm 1442 trong vụ án Lệ Chi Viên, nhưng di sản ông để lại mãi trường tồn cùng đất nước.
+        </p>
+
+        <!-- Tags -->
+        <div class="mt-6 flex flex-wrap gap-2">
+          <span class="px-3 py-1 rounded-full text-xs font-medium bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300">Nhà tư tưởng</span>
+          <span class="px-3 py-1 rounded-full text-xs font-medium bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300">Thi nhân</span>
+          <span class="px-3 py-1 rounded-full text-xs font-medium bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300">Danh nhân UNESCO</span>
+          <span class="px-3 py-1 rounded-full text-xs font-medium bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300">Anh hùng dân tộc</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SECTION: CÁC ĐỊA DANH NỔI BẬT (cards)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="py-20 md:py-28 bg-[#064e3b] dark:bg-[#0a1628] relative overflow-hidden">
+
+  <!-- Decorative bg pattern -->
+  <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.6) 1px, transparent 0); background-size: 32px 32px;" aria-hidden="true"></div>
+
+  <div class="max-w-6xl mx-auto px-6 md:px-10 relative z-10">
+    <div class="reveal text-center mb-14">
+      <div class="ornamental-divider mb-4">
+        <span class="text-white/40 text-xs tracking-widest uppercase font-body">Các địa danh</span>
+      </div>
+      <h2 class="font-heading text-3xl md:text-4xl text-white font-bold mb-3">
+        Những dấu chân lịch sử
+      </h2>
+      <p class="font-body text-white/60 text-sm max-w-xl mx-auto">
+        Mỗi địa danh là một chương trong cuộc đời đa truân, vĩ đại của Ức Trai tiên sinh.
+      </p>
+    </div>
+
+    <!-- Location cards grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
+      <!-- Card: Côn Sơn -->
+      <div class="reveal loc-card group bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-emerald-900/50" onclick="openSidebar('con-son')">
+        <div class="aspect-video overflow-hidden">
+          <img src="https://leadtravel.com.vn/wp-content/uploads/2016/10/tour-du-lich-con-son-kiep-bac-1-ngay-gia-re-1-1.jpg" alt="Côn Sơn" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 img-reveal" onload="this.classList.add('loaded')" />
+        </div>
+        <div class="p-5">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-2 h-2 rounded-full" style="background:var(--c-light);"></span>
+            <span class="font-body text-xs tracking-wide uppercase text-emerald-300">Hải Dương</span>
+          </div>
+          <h3 class="font-heading text-white text-lg font-semibold mb-2">Côn Sơn – Chí Linh</h3>
+          <p class="font-body text-white/60 text-sm leading-6 line-clamp-2">Nơi Nguyễn Trãi ẩn cư, viết nên Côn Sơn Ca bất hủ giữa rừng thông và suối chảy.</p>
+          <div class="mt-4 flex items-center gap-1 text-xs font-body" style="color:var(--c-gold);">
+            <span>Xem chi tiết</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card: Nhị Khê -->
+      <div class="reveal loc-card group bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-emerald-900/50" onclick="openSidebar('nhi-khe')" style="animation-delay:0.1s">
+        <div class="aspect-video overflow-hidden">
+          <img src="https://cdn.giaoducthoidai.vn/images/a4d1e2ff37107679232bf8d6328ab9a81e7184096371cf69d9a3b9fb13815f8c4648024bf994ec8a7e6a0b9958c96aab2ee877bf2fb1c8d6c9cbc4b853079a98d3c8fe269272b4c6064bbbb259be639e3e55665178184403672ce90581cc16366b2cf1721f9782fcf472a21c180aca34/mon-banh-nghin-nam-gia-an-tre-lai-gai-mau-dat-chong-1-129.jpg.webp" alt="Nhị Khê" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 img-reveal" onload="this.classList.add('loaded')" />
+        </div>
+        <div class="p-5">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-2 h-2 rounded-full" style="background:var(--c-light);"></span>
+            <span class="font-body text-xs tracking-wide uppercase text-emerald-300">Hà Nội</span>
+          </div>
+          <h3 class="font-heading text-white text-lg font-semibold mb-2">Nhị Khê – Làng quê</h3>
+          <p class="font-body text-white/60 text-sm leading-6 line-clamp-2">Làng Nhị Khê, quê hương ngoại – nơi thơ ấu và ký ức hình thành tâm hồn thi nhân.</p>
+          <div class="mt-4 flex items-center gap-1 text-xs font-body" style="color:var(--c-gold);">
+            <span>Xem chi tiết</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card: Lam Sơn -->
+      <div class="reveal loc-card group bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-emerald-900/50" onclick="openSidebar('lam-son')" style="animation-delay:0.2s">
+        <div class="aspect-video overflow-hidden">
+          <img src="https://truyenhinhthanhhoa.qltns.mediacdn.vn/458221966042468352/2023/10/5/lam-kinh-12-16965153557661255358742.jpg" alt="Lam Sơn" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 img-reveal" onload="this.classList.add('loaded')" />
+        </div>
+        <div class="p-5">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-2 h-2 rounded-full" style="background:var(--c-light);"></span>
+            <span class="font-body text-xs tracking-wide uppercase text-emerald-300">Thanh Hoá</span>
+          </div>
+          <h3 class="font-heading text-white text-lg font-semibold mb-2">Lam Sơn</h3>
+          <p class="font-body text-white/60 text-sm leading-6 line-clamp-2">Nơi bùng phát ngọn lửa khởi nghĩa, nơi Nguyễn Trãi bày mưu tính kế bên Lê Lợi.</p>
+          <div class="mt-4 flex items-center gap-1 text-xs font-body" style="color:var(--c-gold);">
+            <span>Xem chi tiết</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card: Thăng Long -->
+      <div class="reveal loc-card group bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-emerald-900/50" onclick="openSidebar('thang-long')" style="animation-delay:0.3s">
+        <div class="aspect-video overflow-hidden">
+          <img src="https://static.vinwonders.com/production/hoang-thanh-thang-long-1.jpg" alt="Thăng Long" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 img-reveal" onload="this.classList.add('loaded')" />
+        </div>
+        <div class="p-5">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-2 h-2 rounded-full" style="background:var(--c-light);"></span>
+            <span class="font-body text-xs tracking-wide uppercase text-emerald-300">Hà Nội</span>
+          </div>
+          <h3 class="font-heading text-white text-lg font-semibold mb-2">Thăng Long – Kinh thành</h3>
+          <p class="font-body text-white/60 text-sm leading-6 line-clamp-2">Trung tâm quyền lực nơi Nguyễn Trãi giữ chức Hàn lâm học sĩ, soạn thảo văn kiện quốc gia.</p>
+          <div class="mt-4 flex items-center gap-1 text-xs font-body" style="color:var(--c-gold);">
+            <span>Xem chi tiết</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card: Lệ Chi Viên -->
+      <div class="reveal loc-card group bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-emerald-900/50" onclick="openSidebar('le-chi-vien')" style="animation-delay:0.4s">
+        <div class="aspect-video overflow-hidden">
+          <img src="https://cdn3.ivivu.com/2022/12/di-tich-le-chi-vien-ivivu-2.jpg" alt="Lệ Chi Viên" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 img-reveal" onload="this.classList.add('loaded')" />
+        </div>
+        <div class="p-5">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-2 h-2 rounded-full bg-red-400"></span>
+            <span class="font-body text-xs tracking-wide uppercase text-red-300">Bắc Ninh</span>
+          </div>
+          <h3 class="font-heading text-white text-lg font-semibold mb-2">Lệ Chi Viên – Oan án</h3>
+          <p class="font-body text-white/60 text-sm leading-6 line-clamp-2">Vườn vải lịch sử – nơi diễn ra vụ án oan nghiệt kết thúc bi kịch cuộc đời Ức Trai.</p>
+          <div class="mt-4 flex items-center gap-1 text-xs font-body" style="color:var(--c-gold);">
+            <span>Xem chi tiết</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card: Chí Linh Sơn -->
+      <div class="reveal loc-card group bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-emerald-900/50" onclick="openSidebar('chi-linh')" style="animation-delay:0.5s">
+        <div class="aspect-video overflow-hidden">
+          <img src="https://tse4.mm.bing.net/th/id/OIP.S84cphuo-As-r3xeTJHsPgHaEQ?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Chí Linh Sơn" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 img-reveal" onload="this.classList.add('loaded')" />
+        </div>
+        <div class="p-5">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-2 h-2 rounded-full" style="background:var(--c-light);"></span>
+            <span class="font-body text-xs tracking-wide uppercase text-emerald-300">Hải Dương</span>
+          </div>
+          <h3 class="font-heading text-white text-lg font-semibold mb-2">Chí Linh Sơn – Ẩn náu</h3>
+          <p class="font-body text-white/60 text-sm leading-6 line-clamp-2">Vùng núi rừng Chí Linh – nơi Nguyễn Trãi và Lê Lợi ẩn náu những ngày đầu gian khổ.</p>
+          <div class="mt-4 flex items-center gap-1 text-xs font-body" style="color:var(--c-gold);">
+            <span>Xem chi tiết</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SECTION: TÁC PHẨM (Works)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section id="tac-pham" class="py-20 md:py-28 bg-[#f8fafc] dark:bg-[#0f172a]">
+  <div class="max-w-6xl mx-auto px-6 md:px-10">
+
+    <div class="reveal text-center mb-14">
+      <div class="ornamental-divider mb-4">
+        <span class="text-slate-400 text-xs tracking-widest uppercase font-body">Di sản văn học</span>
+      </div>
+      <h2 class="font-heading text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-3">Tác phẩm lưu danh</h2>
+      <p class="font-body text-slate-500 dark:text-slate-400 text-sm max-w-lg mx-auto">
+        Những áng văn thơ vượt thời gian — tiếng lòng của một trí tuệ lớn và một tâm hồn nhân nghĩa.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+      <!-- Work 1 -->
+      <div class="reveal group p-7 rounded-2xl border border-slate-200 dark:border-slate-700 hover:border-emerald-300 dark:hover:border-emerald-700 transition-all bg-white dark:bg-slate-800/50 hover:shadow-lg cursor-default">
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 text-2xl" style="background:linear-gradient(135deg,var(--c-primary),var(--c-dark));">
+            📜
+          </div>
+          <div>
+            <h3 class="font-heading text-lg font-bold text-slate-900 dark:text-white mb-1">Bình Ngô Đại Cáo</h3>
+            <span class="text-xs font-body text-emerald-600 dark:text-emerald-400 tracking-wide uppercase">1428</span>
+            <p class="font-body text-slate-500 dark:text-slate-400 text-sm leading-6 mt-2">
+              "Bản tuyên ngôn độc lập" thứ hai của Việt Nam — khẳng định chủ quyền và nền văn hiến dân tộc sau khi đánh đuổi quân Minh.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Work 2 -->
+      <div class="reveal group p-7 rounded-2xl border border-slate-200 dark:border-slate-700 hover:border-emerald-300 dark:hover:border-emerald-700 transition-all bg-white dark:bg-slate-800/50 hover:shadow-lg cursor-default" style="animation-delay:0.1s">
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 text-2xl" style="background:linear-gradient(135deg,var(--c-primary),var(--c-dark));">
+            🏔️
+          </div>
+          <div>
+            <h3 class="font-heading text-lg font-bold text-slate-900 dark:text-white mb-1">Côn Sơn Ca</h3>
+            <span class="text-xs font-body text-emerald-600 dark:text-emerald-400 tracking-wide uppercase">Thơ chữ Nôm</span>
+            <p class="font-body text-slate-500 dark:text-slate-400 text-sm leading-6 mt-2">
+              Bài thơ thanh tao ca ngợi thiên nhiên núi rừng Côn Sơn — tiếng lòng thi sĩ ẩn cư, thoát vòng danh lợi.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Work 3 -->
+      <div class="reveal group p-7 rounded-2xl border border-slate-200 dark:border-slate-700 hover:border-emerald-300 dark:hover:border-emerald-700 transition-all bg-white dark:bg-slate-800/50 hover:shadow-lg cursor-default" style="animation-delay:0.2s">
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 text-2xl" style="background:linear-gradient(135deg,var(--c-primary),var(--c-dark));">
+            ✍️
+          </div>
+          <div>
+            <h3 class="font-heading text-lg font-bold text-slate-900 dark:text-white mb-1">Ức Trai Thi Tập</h3>
+            <span class="text-xs font-body text-emerald-600 dark:text-emerald-400 tracking-wide uppercase">Thơ chữ Hán</span>
+            <p class="font-body text-slate-500 dark:text-slate-400 text-sm leading-6 mt-2">
+              Tuyển tập thơ chữ Hán phong phú phản ánh cuộc đời, tâm tư và khát vọng nhân nghĩa của Nguyễn Trãi.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Work 4 -->
+      <div class="reveal group p-7 rounded-2xl border border-slate-200 dark:border-slate-700 hover:border-emerald-300 dark:hover:border-emerald-700 transition-all bg-white dark:bg-slate-800/50 hover:shadow-lg cursor-default" style="animation-delay:0.3s">
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 text-2xl" style="background:linear-gradient(135deg,var(--c-gold),#92400e);">
+            📚
+          </div>
+          <div>
+            <h3 class="font-heading text-lg font-bold text-slate-900 dark:text-white mb-1">Quốc Âm Thi Tập</h3>
+            <span class="text-xs font-body text-amber-600 dark:text-amber-400 tracking-wide uppercase">Thơ chữ Nôm</span>
+            <p class="font-body text-slate-500 dark:text-slate-400 text-sm leading-6 mt-2">
+              Tập thơ Nôm quan trọng đặt nền móng cho nền văn học tiếng Việt — tiếng thơ đậm đà bản sắc dân tộc.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Work 5 -->
+      <div class="reveal group p-7 rounded-2xl border border-slate-200 dark:border-slate-700 hover:border-emerald-300 dark:hover:border-emerald-700 transition-all bg-white dark:bg-slate-800/50 hover:shadow-lg cursor-default" style="animation-delay:0.4s">
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 text-2xl" style="background:linear-gradient(135deg,var(--c-primary),var(--c-dark));">
+            🗺️
+          </div>
+          <div>
+            <h3 class="font-heading text-lg font-bold text-slate-900 dark:text-white mb-1">Dư Địa Chí</h3>
+            <span class="text-xs font-body text-emerald-600 dark:text-emerald-400 tracking-wide uppercase">Địa lý học</span>
+            <p class="font-body text-slate-500 dark:text-slate-400 text-sm leading-6 mt-2">
+              Công trình địa lý – lịch sử đầu tiên mô tả địa dư nước Đại Việt một cách có hệ thống.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Work 6 -->
+      <div class="reveal group p-7 rounded-2xl border border-slate-200 dark:border-slate-700 hover:border-emerald-300 dark:hover:border-emerald-700 transition-all bg-white dark:bg-slate-800/50 hover:shadow-lg cursor-default" style="animation-delay:0.5s">
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 text-2xl" style="background:linear-gradient(135deg,var(--c-gold),#92400e);">
+            ⚔️
+          </div>
+          <div>
+            <h3 class="font-heading text-lg font-bold text-slate-900 dark:text-white mb-1">Lam Sơn Thực Lục</h3>
+            <span class="text-xs font-body text-amber-600 dark:text-amber-400 tracking-wide uppercase">Sử ký</span>
+            <p class="font-body text-slate-500 dark:text-slate-400 text-sm leading-6 mt-2">
+              Biên niên sử về cuộc khởi nghĩa Lam Sơn — hồ sơ sống động về một cuộc chiến tranh giải phóng hào hùng.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SECTION: TIMELINE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="py-20 md:py-28 bg-[#064e3b] dark:bg-[#0a1628] relative overflow-hidden">
+  <div class="absolute inset-0" style="background: radial-gradient(ellipse at 70% 50%, rgba(16,185,129,0.1) 0%, transparent 70%);" aria-hidden="true"></div>
+
+  <div class="max-w-4xl mx-auto px-6 md:px-10 relative z-10">
+    <div class="reveal text-center mb-14">
+      <div class="ornamental-divider mb-4">
+        <span class="text-white/40 text-xs tracking-widest uppercase font-body">Niên biểu</span>
+      </div>
+      <h2 class="font-heading text-3xl md:text-4xl text-white font-bold">Hành trình cuộc đời</h2>
+    </div>
+
+    <!-- Timeline items -->
+    <div class="relative">
+      <!-- Vertical line -->
+      <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-px" style="background: linear-gradient(to bottom, transparent, var(--c-primary), var(--c-gold), transparent); transform: translateX(-50%);"></div>
+
+      <div class="space-y-10">
+
+        <!-- Event -->
+        <div class="reveal relative flex flex-col md:flex-row md:justify-end gap-6 md:gap-10 pl-12 md:pl-0 md:pr-[calc(50%+2.5rem)]">
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-5 hover:bg-white/10 transition-all">
+            <span class="font-heading text-2xl font-bold" style="color:var(--c-gold);">1380</span>
+            <h3 class="font-heading text-white font-semibold mt-1 mb-2">Chào đời tại Hà Tĩnh</h3>
+            <p class="font-body text-white/60 text-sm leading-6">Nguyễn Trãi sinh ra trong một gia đình trí thức, cha là Nguyễn Phi Khanh, mẹ là con gái quan Trần Nguyên Đán.</p>
+          </div>
+          <!-- Dot -->
+          <div class="absolute left-4 md:left-1/2 top-6 w-3 h-3 rounded-full border-2 border-emerald-400 bg-[#064e3b] transform md:-translate-x-1/2"></div>
+        </div>
+
+        <div class="reveal relative flex flex-col md:flex-row gap-6 md:gap-10 pl-12 md:pl-[calc(50%+2.5rem)]">
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-5 hover:bg-white/10 transition-all">
+            <span class="font-heading text-2xl font-bold" style="color:var(--c-gold);">1400</span>
+            <h3 class="font-heading text-white font-semibold mt-1 mb-2">Đỗ Thái học sinh</h3>
+            <p class="font-body text-white/60 text-sm leading-6">Đỗ khoa thi Thái học sinh — kỳ thi cao nhất triều nhà Hồ, khởi đầu sự nghiệp quan lại.</p>
+          </div>
+          <div class="absolute left-4 md:left-1/2 top-6 w-3 h-3 rounded-full border-2 border-emerald-400 bg-[#064e3b] transform md:-translate-x-1/2"></div>
+        </div>
+
+        <div class="reveal relative flex flex-col md:flex-row md:justify-end gap-6 md:gap-10 pl-12 md:pl-0 md:pr-[calc(50%+2.5rem)]">
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-5 hover:bg-white/10 transition-all">
+            <span class="font-heading text-2xl font-bold" style="color:var(--c-gold);">1418</span>
+            <h3 class="font-heading text-white font-semibold mt-1 mb-2">Tham gia khởi nghĩa Lam Sơn</h3>
+            <p class="font-body text-white/60 text-sm leading-6">Tìm đến Lê Lợi ở Lam Sơn, trở thành quân sư tối cao trong cuộc kháng chiến chống quân Minh.</p>
+          </div>
+          <div class="absolute left-4 md:left-1/2 top-6 w-3 h-3 rounded-full border-2 border-gold-400 bg-[#064e3b] transform md:-translate-x-1/2" style="border-color:var(--c-gold);"></div>
+        </div>
+
+        <div class="reveal relative flex flex-col md:flex-row gap-6 md:gap-10 pl-12 md:pl-[calc(50%+2.5rem)]">
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-5 hover:bg-white/10 transition-all">
+            <span class="font-heading text-2xl font-bold" style="color:var(--c-gold);">1428</span>
+            <h3 class="font-heading text-white font-semibold mt-1 mb-2">Viết Bình Ngô Đại Cáo</h3>
+            <p class="font-body text-white/60 text-sm leading-6">Sau chiến thắng, thay Lê Thái Tổ soạn Bình Ngô Đại Cáo — văn kiện lịch sử vĩ đại nhất.</p>
+          </div>
+          <div class="absolute left-4 md:left-1/2 top-6 w-3 h-3 rounded-full border-2 border-gold-400 bg-[#064e3b] transform md:-translate-x-1/2" style="border-color:var(--c-gold);"></div>
+        </div>
+
+        <div class="reveal relative flex flex-col md:flex-row md:justify-end gap-6 md:gap-10 pl-12 md:pl-0 md:pr-[calc(50%+2.5rem)]">
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-5 hover:bg-white/10 transition-all">
+            <span class="font-heading text-2xl font-bold" style="color:var(--c-gold);">1442</span>
+            <h3 class="font-heading text-white font-semibold mt-1 mb-2">Vụ án Lệ Chi Viên</h3>
+            <p class="font-body text-white/60 text-sm leading-6">Bị hại oan trong vụ án Lệ Chi Viên. Năm 1464, vua Lê Thánh Tông minh oan và phục hồi danh dự cho ông.</p>
+          </div>
+          <div class="absolute left-4 md:left-1/2 top-6 w-3 h-3 rounded-full border-2 border-red-400 bg-[#064e3b] transform md:-translate-x-1/2"></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SECTION: QUOTE HIGHLIGHT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<section class="py-16 bg-[#f8fafc] dark:bg-[#0f172a]">
+  <div class="max-w-3xl mx-auto px-6 text-center reveal">
+    <div class="ornamental-divider mb-8">
+      <svg class="w-6 h-6 opacity-60" style="color:var(--c-gold);" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+      </svg>
+    </div>
+    <blockquote class="font-heading text-2xl md:text-3xl font-bold text-slate-900 dark:text-white leading-tight mb-6 italic">
+      "Đem đại nghĩa để thắng hung tàn,<br/>
+      Lấy chí nhân để thay cường bạo."
+    </blockquote>
+    <p class="font-body text-sm text-slate-500 dark:text-slate-400 tracking-wide">— Nguyễn Trãi, <em>Bình Ngô Đại Cáo</em>, 1428</p>
+    <div class="ornamental-divider mt-8">
+      <svg class="w-6 h-6 opacity-60 rotate-180" style="color:var(--c-gold);" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     FOOTER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<footer id="credit" class="bg-[#064e3b] dark:bg-[#030f1a] py-12 px-6">
+  <div class="max-w-6xl mx-auto">
+
+    <!-- Top row -->
+    <div class="flex flex-col md:flex-row items-center md:items-start justify-between gap-8 pb-8 border-b border-white/10">
+
+      <!-- Brand -->
+      <div class="text-center md:text-left">
+        <p class="font-heading text-2xl font-bold text-white mb-1">BẢN ĐỒ SỐ</p>
+        <p class="font-body text-xs tracking-widest text-white/40 uppercase mb-3">Dự án bản đồ số của lớp 10A4</p>
+      </div>
+
+      <!-- Quick links -->
+      <div class="text-center md:text-left">
+        <h4 class="font-body font-semibold text-white/80 text-xs tracking-widest uppercase mb-4">Điều hướng</h4>
+        <ul class="space-y-2">
+          <li><a href="#" class="font-body text-white/50 hover:text-white text-sm transition">Trang chủ</a></li>
+          <li><a href="#nguyen-trai" class="font-body text-white/50 hover:text-white text-sm transition">Nguyễn Trãi</a></li>
+          <li><a href="#tac-pham" class="font-body text-white/50 hover:text-white text-sm transition">Tác phẩm</a></li>
+          <li><a href="#" onclick="openTOC()" class="font-body text-white/50 hover:text-white text-sm transition">Mục lục địa danh</a></li>
+        </ul>
+      </div>
+
+      <!-- Credit -->
+      <div class="text-center md:text-left">
+        <h4 class="font-body font-semibold text-white/80 text-xs tracking-widest uppercase mb-4">Credit</h4>
+        <ul class="space-y-2">
+          <li class="font-body text-white/50 text-sm">Giáo viên bộ môn : Hồ Thị Thế</li>
+          <li class="font-body text-white/50 text-sm">Trưởng nhóm : Võ Ngọc Lan</li>
+          <li class="font-body text-white/50 text-sm">Coder : Võ Ngọc Lan</li>
+          <li class="font-body text-white/50 text-sm">Thành viên : </li>
+          <li  class="font-body text-white/50 text-sm">Hồ Quang Minh</li>
+          <li class="font-body text-white/50 text-sm">Võ Nhật Phương</li>
+          <li class="font-body text-white/50 text-sm">Trần Văn Minh Hùng</li>
+          <li class="font-body text-white/50 text-sm">Nguyễn Bá Phước</li>
+          <li class="font-body text-white/50 text-sm">Phạm Quỳnh Chi</li>
+          <li class="font-body text-white/50 text-sm">Hoàng Diệu Ngọc</li>
+          <li class="font-body text-white/50 text-sm">Trần Quang Huy</li>
+          <li class="font-body text-white/50 text-sm">Ngô Anh Thư</li>
+          <li class="font-body text-white/50 text-sm">Bùi Phương /+</li>
+          <li class="font-body text-white/50 text-sm">Ngôn ngữ lập trình sử dụng : HTML , CSS ,Java</li>
+          <li>
+            <a href="https://github.com" target="_blank" rel="noopener" class="font-body text-white/50 hover:text-white text-sm transition flex items-center gap-1.5 justify-center md:justify-start">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+              </svg>
+              GitHub
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+</footer>
+
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     SIDEBAR (slide-in from right)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<div id="sidebar-backdrop" onclick="closeSidebar()" aria-hidden="true"></div>
+
+<aside id="info-sidebar" aria-label="Chi tiết địa danh" role="complementary">
+  <div class="h-full flex flex-col bg-white dark:bg-slate-900 shadow-2xl">
+
+    <!-- Sidebar Header -->
+    <div class="relative" style="background:linear-gradient(135deg,var(--c-dark),var(--c-primary));">
+      <div id="sidebar-img-wrap" class="aspect-video overflow-hidden">
+        <img id="sidebar-img" src="" alt="" class="w-full h-full object-cover img-reveal" onload="this.classList.add('loaded')" />
+      </div>
+      <!-- Gradient overlay on image -->
+      <div class="absolute inset-0 bg-gradient-to-t from-[#064e3b] via-transparent to-transparent"></div>
+
+      <!-- Close btn -->
+      <button onclick="closeSidebar()" aria-label="Đóng thông tin"
+        class="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/30 hover:bg-black/50 flex items-center justify-center text-white transition-all z-10">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+
+      <!-- Location label -->
+      <div class="absolute bottom-0 left-0 right-0 p-5 z-10">
+        <span id="sidebar-region" class="font-body text-xs tracking-widest uppercase text-emerald-300 mb-1 block"></span>
+        <h2 id="sidebar-title" class="font-heading text-2xl font-bold text-white leading-tight"></h2>
+      </div>
+    </div>
+
+    <!-- Sidebar body (scrollable) -->
+    <div class="sidebar-body p-6 flex flex-col gap-5">
+
+      <!-- Description -->
+      <div>
+        <div class="ornamental-divider mb-4">
+          <span class="text-slate-400 text-[0.6rem] tracking-widest uppercase">Ý nghĩa lịch sử</span>
+        </div>
+        <p id="sidebar-desc" class="font-body text-slate-600 dark:text-slate-300 text-sm leading-7"></p>
+      </div>
+
+      <!-- Poem -->
+      <div>
+        <div class="ornamental-divider mb-4">
+          <span class="text-slate-400 text-[0.6rem] tracking-widest uppercase">Thơ Nguyễn Trãi</span>
+        </div>
+        <div class="poem-block">
+          <p id="sidebar-poem" class="font-heading italic text-slate-700 dark:text-slate-200 text-sm leading-7"></p>
+          <p id="sidebar-poem-src" class="font-body text-xs mt-2 text-slate-400"></p>
+        </div>
+      </div>
+
+      <!-- Tags -->
+      <div id="sidebar-tags" class="flex flex-wrap gap-2"></div>
+
+      <!-- CTA buttons -->
+      <div class="flex gap-3 mt-2">
+        <a id="sidebar-readmore" href="#" target="_blank" rel="noopener"
+          class="flex-1 text-center py-3 rounded-xl font-body font-semibold text-sm text-white transition-all hover:scale-105 hover:shadow-lg"
+          style="background:linear-gradient(135deg,var(--c-primary),var(--c-dark));">
+          Xem thêm →
+        </a>
+        <button onclick="closeSidebar()"
+          class="px-5 py-3 rounded-xl font-body text-sm border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+          Đóng
+        </button>
+      </div>
+    </div>
+  </div>
+</aside>
+
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     TOC MODAL (Table of Contents)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<div id="toc-modal" role="dialog" aria-modal="true" aria-label="Mục lục địa danh" onclick="handleTOCBackdrop(event)">
+  <div id="toc-box" class="bg-white dark:bg-slate-900 rounded-3xl p-8 shadow-2xl">
+
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <h2 class="font-heading text-2xl font-bold text-slate-900 dark:text-white">Mục lục địa danh</h2>
+        <p class="font-body text-sm text-slate-500 dark:text-slate-400 mt-1">Tất cả địa điểm trên bản đồ Nguyễn Trãi</p>
+      </div>
+      <button onclick="closeTOC()" class="w-10 h-10 rounded-full border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-500 hover:text-slate-900 dark:hover:text-white transition-all hover:bg-slate-50 dark:hover:bg-slate-800" aria-label="Đóng">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="space-y-2">
+      <button onclick="openSidebar('con-son'); closeTOC();" class="w-full text-left px-4 py-3.5 rounded-xl border border-slate-100 dark:border-slate-700 hover:border-emerald-300 dark:hover:border-emerald-700 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-all group">
+        <div class="flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg flex items-center justify-center text-sm" style="background:rgba(16,185,129,0.1); color:var(--c-primary);">🌿</span>
+          <div>
+            <p class="font-body font-medium text-sm text-slate-900 dark:text-white group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition">Côn Sơn – Chí Linh</p>
+            <p class="font-body text-xs text-slate-400">Hải Dương · Ẩn cư và sáng tác</p>
+          </div>
+        </div>
+      </button>
+
+      <button onclick="openSidebar('nhi-khe'); closeTOC();" class="w-full text-left px-4 py-3.5 rounded-xl border border-slate-100 dark:border-slate-700 hover:border-emerald-300 dark:hover:border-emerald-700 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-all group">
+        <div class="flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg flex items-center justify-center text-sm" style="background:rgba(16,185,129,0.1); color:var(--c-primary);">🏡</span>
+          <div>
+            <p class="font-body font-medium text-sm text-slate-900 dark:text-white group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition">Nhị Khê – Làng quê</p>
+            <p class="font-body text-xs text-slate-400">Hà Nội · Nơi chôn nhau cắt rốn</p>
+          </div>
+        </div>
+      </button>
+
+      <button onclick="openSidebar('lam-son'); closeTOC();" class="w-full text-left px-4 py-3.5 rounded-xl border border-slate-100 dark:border-slate-700 hover:border-emerald-300 dark:hover:border-emerald-700 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-all group">
+        <div class="flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg flex items-center justify-center text-sm" style="background:rgba(16,185,129,0.1); color:var(--c-primary);">⚔️</span>
+          <div>
+            <p class="font-body font-medium text-sm text-slate-900 dark:text-white group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition">Lam Sơn – Căn cứ địa</p>
+            <p class="font-body text-xs text-slate-400">Thanh Hoá · Khởi nghĩa 1418–1427</p>
+          </div>
+        </div>
+      </button>
+
+      <button onclick="openSidebar('thang-long'); closeTOC();" class="w-full text-left px-4 py-3.5 rounded-xl border border-slate-100 dark:border-slate-700 hover:border-emerald-300 dark:hover:border-emerald-700 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-all group">
+        <div class="flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg flex items-center justify-center text-sm" style="background:rgba(16,185,129,0.1); color:var(--c-primary);">🏛️</span>
+          <div>
+            <p class="font-body font-medium text-sm text-slate-900 dark:text-white group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition">Thăng Long – Kinh thành</p>
+            <p class="font-body text-xs text-slate-400">Hà Nội · Triều đình và văn kiện</p>
+          </div>
+        </div>
+      </button>
+
+      <button onclick="openSidebar('le-chi-vien'); closeTOC();" class="w-full text-left px-4 py-3.5 rounded-xl border border-slate-100 dark:border-slate-700 hover:border-red-200 dark:hover:border-red-800 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all group">
+        <div class="flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg flex items-center justify-center text-sm bg-red-50">🍂</span>
+          <div>
+            <p class="font-body font-medium text-sm text-slate-900 dark:text-white group-hover:text-red-700 dark:group-hover:text-red-400 transition">Lệ Chi Viên – Oan án</p>
+            <p class="font-body text-xs text-slate-400">Bắc Ninh · 1442 – Vụ án bi thương</p>
+          </div>
+        </div>
+      </button>
+
+      <button onclick="openSidebar('chi-linh'); closeTOC();" class="w-full text-left px-4 py-3.5 rounded-xl border border-slate-100 dark:border-slate-700 hover:border-emerald-300 dark:hover:border-emerald-700 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-all group">
+        <div class="flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg flex items-center justify-center text-sm" style="background:rgba(16,185,129,0.1); color:var(--c-primary);">⛰️</span>
+          <div>
+            <p class="font-body font-medium text-sm text-slate-900 dark:text-white group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition">Chí Linh Sơn – Ẩn náu</p>
+            <p class="font-body text-xs text-slate-400">Hải Dương · Những năm gian khổ</p>
+          </div>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     FAB (Floating Action Button)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<button id="fab" onclick="openTOC()" aria-label="Mở mục lục địa danh" title="Mục lục địa danh">
+  <!-- Leaf / location icon -->
+  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+  </svg>
+  <!-- Pulse ring -->
+  <span class="absolute inset-0 rounded-full animate-ping opacity-30" style="background:var(--c-primary);"></span>
+</button>
+
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     JAVASCRIPT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<script src="script.js"></script>
+
+</body>
+</html>
